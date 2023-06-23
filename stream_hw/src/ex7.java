@@ -27,19 +27,13 @@ public class ex7 {
 
         // Lấy danh sách các đơn đặt hàng được đặt hàng vào ngày 15 tháng 3 năm 2021, in ra console và sau đó trả lại danh sách sản phẩm của nó
         LocalDate order_date = LocalDate.of(2021, 3, 15);
-        List<Order> ex7 = orders.stream()
+
+        List<Product> ex7 = orders.stream()
                 .filter(order -> order.getOrderDate().equals(order_date))
-                .collect(Collectors.toList());
-
-        System.out.println("Danh sách các đơn đặt hàng được đặt vào ngày " + order_date + ":");
-        for (Order order : ex7) {
-            System.out.println("orderID: " + order.getId() + ", Trạng thái: " + order.getStatus());
-        }
-
-        List<Product> productList = ex7.stream()
                 .flatMap(order -> order.getProducts().stream()).collect(Collectors.toList());
-        System.out.println("Danh sách sản phẩm của các đơn đặt hàng:");
-        for (Product product : productList) {
+
+        System.out.println("Danh sách sản phẩm: ");
+        for (Product product : ex7) {
             System.out.println("ProductID: " + product.getId() + ", Tên: " + product.getName());
         }
     }
